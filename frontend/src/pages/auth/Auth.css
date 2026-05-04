@@ -1,0 +1,105 @@
+/* ═══════════════════════════════════════════════════════════
+   Auth Pages — Shared Styles
+   ═══════════════════════════════════════════════════════════ */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-bg { position: absolute; inset: 0; z-index: 0; }
+.auth-orb { position: absolute; border-radius: 50%; filter: blur(100px); }
+.orb-a { width: 400px; height: 400px; background: var(--primary); opacity: 0.15; top: -100px; right: -50px; animation: float 10s ease-in-out infinite; }
+.orb-b { width: 350px; height: 350px; background: var(--secondary); opacity: 0.1; bottom: -80px; left: -50px; animation: float 8s ease-in-out infinite reverse; }
+
+.auth-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--bg-glass-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10);
+  box-shadow: var(--shadow-xl);
+}
+
+.auth-header { text-align: center; margin-bottom: var(--space-8); }
+
+.auth-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: var(--text-primary);
+  margin-bottom: var(--space-6);
+}
+
+.auth-header h1 {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  margin-bottom: var(--space-2);
+}
+
+.auth-header p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.input-icon-wrapper {
+  position: relative;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-tertiary);
+  pointer-events: none;
+}
+
+.input-with-icon { padding-left: 42px; }
+
+.auth-options {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.auth-link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.auth-link:hover { color: var(--primary-light); }
+
+.auth-footer-text {
+  text-align: center;
+  margin-top: var(--space-6);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.auth-success {
+  text-align: center;
+  padding: var(--space-8) 0;
+  color: var(--success);
+  font-weight: 500;
+}

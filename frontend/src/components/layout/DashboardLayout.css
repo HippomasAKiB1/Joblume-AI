@@ -1,0 +1,28 @@
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  transition: margin-left var(--transition-base);
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.sidebar.collapsed ~ .dashboard-main,
+.dashboard-layout:has(.sidebar.collapsed) .dashboard-main {
+  margin-left: var(--sidebar-collapsed);
+}
+
+.dashboard-content {
+  padding: var(--space-8);
+  max-width: 1400px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@media (max-width: 768px) {
+  .dashboard-main { margin-left: 0; }
+  .dashboard-content { padding: var(--space-4); }
+}
