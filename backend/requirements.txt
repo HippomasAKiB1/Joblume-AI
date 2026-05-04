@@ -1,0 +1,18 @@
+fastapi
+uvicorn[standard]
+sqlalchemy[asyncio]
+aiosqlite
+# asyncpg  # Uncomment for PostgreSQL production deployment
+alembic
+pydantic
+pydantic-settings
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+aiohttp
+pdfplumber
+python-docx
+reportlab
+jinja2
+python-dotenv
+email-validator
