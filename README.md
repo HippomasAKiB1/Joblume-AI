@@ -106,18 +106,32 @@ FRONTEND_URL=http://localhost:5173
 ## 🚢 Deployment
 
 ### Frontend → Vercel
-```bash
-cd frontend
-npm run build
-# Deploy dist/ folder to Vercel
-```
+1. In Vercel, create a new project and point it to the `frontend` folder.
+2. Use:
+   - Install command: `npm install`
+   - Build command: `npm run build`
+   - Output directory: `dist`
+3. Add this environment variable in Vercel:
+   - `VITE_API_URL=https://<your-render-backend-url>`
+4. Deploy the app.
 
-### Backend → Render / Railway
-Use the included `Dockerfile` and `Procfile`.
+> If Vercel detects the Vite app automatically, these settings are usually prefilled.
 
-Set environment variables in your deployment dashboard.
+### Backend → Render
+1. In Render, create a new **Web Service**.
+2. Choose `Docker` as the environment.
+3. Set the repository root and Dockerfile path to `backend/Dockerfile`.
+4. Use the default start command; the Dockerfile already supports `PORT`.
+5. Add the required environment variables in Render:
+   - `DATABASE_URL` (e.g. `postgresql+asyncpg://user:password@host:5432/joblume`)
+   - `JWT_SECRET`
+   - `OPENROUTER_API_KEY`
+   - `OPENROUTER_MODEL=openrouter/auto`
+   - `FRONTEND_URL=https://<your-vercel-domain>.vercel.app`
+6. Set the health check path to `/health`.
 
-### Database → Neon / Supabase
+### Database
+Use an external PostgreSQL provider such as Neon, Supabase, or Render Postgres.
 Update `DATABASE_URL` to your PostgreSQL connection string:
 ```
 postgresql+asyncpg://user:password@host:5432/joblume

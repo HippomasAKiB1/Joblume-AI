@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: joblume-ai-backend
+    env: docker
+    plan: free
+    branch: main
+    dockerfilePath: backend/Dockerfile
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: OPENROUTER_MODEL
+        value: openrouter/auto
+      - key: FRONTEND_URL
+        value: https://<your-vercel-domain>.vercel.app
