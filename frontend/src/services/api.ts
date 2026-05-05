@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
+if (!import.meta.env.VITE_API_URL) {
+  console.warn('VITE_API_URL is not set. API requests will be sent to the current origin. Set VITE_API_URL in Vercel for deployed frontend.');
+}
 
 const api = axios.create({
   baseURL: API_BASE,
