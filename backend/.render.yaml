@@ -10,5 +10,7 @@ services:
     envVars:
       - key: OPENROUTER_MODEL
         value: openrouter/auto
+      - key: OPENROUTER_API_KEY
+        sync: false
       - key: FRONTEND_URL
         value: https://<your-vercel-domain>.vercel.app
