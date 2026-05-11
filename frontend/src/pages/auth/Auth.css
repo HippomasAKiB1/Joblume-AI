@@ -72,7 +72,7 @@
   pointer-events: none;
 }
 
-.input-with-icon { padding-left: 42px; }
+.input-with-icon { padding-left: 42px !important; }
 
 .auth-options {
   display: flex;
