@@ -4,6 +4,7 @@ import { Resume, JobTailorResult } from '../../types';
 import { Wand2, Upload, Target, AlertCircle, CheckCircle, Lightbulb } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './Dashboard.css';
+import SubscriptionGate from '../../components/subscription/SubscriptionGate';
 
 export default function JobTailorPage() {
   const [resumes, setResumes] = useState<Resume[]>([]);
@@ -39,7 +40,8 @@ export default function JobTailorPage() {
   const scoreColor = (score: number) => score >= 75 ? 'var(--success)' : score >= 50 ? 'var(--warning)' : 'var(--danger)';
 
   return (
-    <div className="animate-fade-in">
+    <SubscriptionGate title="AI Job Tailor Engine">
+      <div className="animate-fade-in">
       <div className="dash-header">
         <h1 className="dash-title">Job Tailor AI</h1>
         <p className="dash-subtitle">Optimize your resume to match any job description</p>
@@ -111,5 +113,6 @@ export default function JobTailorPage() {
         @media (max-width: 1024px) { .tailor-layout { grid-template-columns: 1fr; } }
       `}</style>
     </div>
+    </SubscriptionGate>
   );
 }

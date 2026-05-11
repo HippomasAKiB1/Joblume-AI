@@ -4,6 +4,7 @@ import { Resume } from '../../types';
 import { Mail, Copy, Download, Wand2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './Dashboard.css';
+import SubscriptionGate from '../../components/subscription/SubscriptionGate';
 
 export default function CoverLetterPage() {
   const [resumes, setResumes] = useState<Resume[]>([]);
@@ -30,7 +31,8 @@ export default function CoverLetterPage() {
   const copyToClipboard = () => { navigator.clipboard.writeText(content); toast.success('Copied!'); };
 
   return (
-    <div className="animate-fade-in">
+    <SubscriptionGate title="AI Cover Letter Engine">
+      <div className="animate-fade-in">
       <div className="dash-header"><h1 className="dash-title">Cover Letter Generator</h1><p className="dash-subtitle">Generate tailored cover letters with AI</p></div>
       <div className="tailor-layout">
         <div className="card" style={{display:'flex',flexDirection:'column',gap:'var(--space-5)',padding:'var(--space-6)'}}>
@@ -67,5 +69,6 @@ export default function CoverLetterPage() {
         @media (max-width: 1024px) { .tailor-layout { grid-template-columns: 1fr; } }
       `}</style>
     </div>
+    </SubscriptionGate>
   );
 }

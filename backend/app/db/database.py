@@ -32,6 +32,17 @@ async def get_db():
             await session.close()
 
 
+from sqlalchemy import text
+
 async def init_db():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        # Resilient database backward compatibility migration logic for zero-downtime upgrade
+        try:
+            await conn.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS subscription_tier VARCHAR(50) DEFAULT 'free'"))
+        except Exception:
+            # Soft fallback for non-PGSQL dialects/local SQLite without IF NOT EXISTS support
+            try:
+                await conn.execute(text("ALTER TABLE users ADD COLUMN subscription_tier VARCHAR(50) DEFAULT 'free'"))
+            except Exception:
+                pass # Already exists or not supported, continuing without halting service

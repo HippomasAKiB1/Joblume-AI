@@ -168,6 +168,40 @@
   max-width: 150px;
 }
 
+.upgrade-prompt-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: var(--space-2) 0;
+  padding: 10px;
+  background: linear-gradient(135deg, #1E293B, #334155);
+  border: 1px solid #475569;
+  color: white;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.upgrade-prompt-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  border-color: transparent;
+}
+
+.upgrade-sparkle {
+  color: var(--accent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+
 @media (max-width: 768px) {
   .sidebar {
     transform: translateX(-100%);

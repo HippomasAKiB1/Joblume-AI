@@ -28,6 +28,7 @@ class UserResponse(BaseModel):
     id: str
     full_name: str
     email: str
+    subscription_tier: str
     created_at: datetime
 
     class Config:
@@ -37,6 +38,10 @@ class UserResponse(BaseModel):
 class UserUpdateRequest(BaseModel):
     full_name: Optional[str] = None
     email: Optional[EmailStr] = None
+
+
+class SubscriptionUpgradeRequest(BaseModel):
+    code: str = Field(..., min_length=1)
 
 
 # ── Resume Schemas ────────────────────────────────────────────

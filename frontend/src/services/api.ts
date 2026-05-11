@@ -46,6 +46,8 @@ export const userAPI = {
   getProfile: () => api.get('/user/profile'),
   updateProfile: (data: { full_name?: string; email?: string }) =>
     api.put('/user/profile', data),
+  upgradeSubscription: (code: string) =>
+    api.post('/user/upgrade', { code }),
 };
 
 // ── Resumes ──────────────────────────────────────────────

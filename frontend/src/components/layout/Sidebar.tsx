@@ -7,6 +7,7 @@ import {
   LogOut, Sun, Moon, Sparkles, ChevronLeft
 } from 'lucide-react';
 import { useState } from 'react';
+import UpgradeModal from '../subscription/UpgradeModal';
 import './Sidebar.css';
 
 const menuItems = [
@@ -26,6 +27,7 @@ export default function Sidebar() {
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
+  const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
 
   return (
     <aside className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
@@ -62,6 +64,18 @@ export default function Sidebar() {
           <LogOut size={20} />
           {!collapsed && <span>Logout</span>}
         </button>
+
+        {!collapsed && user && user.subscription_tier !== 'pro' && (
+          <button className="upgrade-prompt-btn animate-scale-in" onClick={() => setIsUpgradeModalOpen(true)}>
+            <Sparkles size={16} className="upgrade-sparkle" /> Upgrade to Pro
+          </button>
+        )}
+
+        <UpgradeModal 
+          isOpen={isUpgradeModalOpen} 
+          onClose={() => setIsUpgradeModalOpen(false)} 
+          plan="pro" 
+        />
         {!collapsed && user && (
           <div className="sidebar-user">
             <div className="user-avatar">{user.full_name.charAt(0).toUpperCase()}</div>

@@ -3,6 +3,7 @@ export interface User {
   id: string;
   full_name: string;
   email: string;
+  subscription_tier: string;
   created_at: string;
 }
 

@@ -3,6 +3,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+import UpgradeModal from '../components/subscription/UpgradeModal';
+import { useState } from 'react';
 import {
   Sparkles, FileText, Wand2, ScanSearch, Mail, ClipboardList,
   Target, Zap, Shield, ArrowRight, Star, Check, ChevronRight
@@ -54,6 +56,8 @@ export default function LandingPage() {
       setTimeout(() => scrollToSection(id), 100);
     }
   }, [location]);
+
+  const [modalConfig, setModalConfig] = useState<{isOpen: boolean, plan: 'pro'|'enterprise'}>({ isOpen: false, plan: 'pro' });
 
   const handleCraftResume = () => {
     navigate(isAuthenticated ? '/dashboard' : '/login');
@@ -180,7 +184,17 @@ export default function LandingPage() {
                   ))}
                 </ul>
                 <button className={`btn w-full ${plan.popular ? 'btn-primary' : 'btn-secondary'}`}
-                  onClick={() => navigate('/register')}>{plan.cta}</button>
+                  onClick={() => {
+                    if (i === 0) { // Free
+                      navigate(isAuthenticated ? '/dashboard' : '/register');
+                    } else if (i === 1) { // Pro
+                      if (!isAuthenticated) return navigate('/login');
+                      setModalConfig({ isOpen: true, plan: 'pro' });
+                    } else { // Enterprise
+                      if (!isAuthenticated) return navigate('/login');
+                      setModalConfig({ isOpen: true, plan: 'enterprise' });
+                    }
+                  }}>{plan.cta}</button>
               </div>
             ))}
           </div>
@@ -226,6 +240,12 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      <UpgradeModal 
+        isOpen={modalConfig.isOpen} 
+        onClose={() => setModalConfig(prev => ({ ...prev, isOpen: false }))} 
+        plan={modalConfig.plan} 
+      />
 
       <Footer />
     </div>

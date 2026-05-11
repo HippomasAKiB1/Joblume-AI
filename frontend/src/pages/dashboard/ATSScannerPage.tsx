@@ -4,6 +4,7 @@ import { Resume, ATSScoreResult } from '../../types';
 import { ScanSearch, AlertTriangle, AlertCircle, Lightbulb, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './Dashboard.css';
+import SubscriptionGate from '../../components/subscription/SubscriptionGate';
 
 export default function ATSScannerPage() {
   const [resumes, setResumes] = useState<Resume[]>([]);
@@ -28,7 +29,8 @@ export default function ATSScannerPage() {
   const scoreLabel = (s: number) => s >= 80 ? 'Excellent' : s >= 60 ? 'Good' : s >= 40 ? 'Needs Work' : 'Poor';
 
   return (
-    <div className="animate-fade-in">
+    <SubscriptionGate title="ATS Scanner Engine">
+      <div className="animate-fade-in">
       <div className="dash-header"><h1 className="dash-title">ATS Scanner</h1><p className="dash-subtitle">Check your resume's ATS compatibility score</p></div>
 
       <div className="ats-controls card" style={{display:'flex',gap:'var(--space-4)',alignItems:'flex-end',marginBottom:'var(--space-6)',flexWrap:'wrap'}}>
@@ -91,5 +93,6 @@ export default function ATSScannerPage() {
         @media (max-width: 768px) { .ats-detail-grid { grid-template-columns: 1fr; } }
       `}</style>
     </div>
+    </SubscriptionGate>
   );
 }

@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { User, AuthResponse } from '../types';
-import { authAPI } from '../services/api';
+import { authAPI, userAPI } from '../services/api';
 
 interface AuthContextType {
   user: User | null;
@@ -10,6 +10,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<void>;
   register: (fullName: string, email: string, password: string) => Promise<void>;
   logout: () => void;
+  refreshUser: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -59,8 +60,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     localStorage.removeItem('joblume_user');
   }, []);
 
+  const refreshUser = useCallback(async () => {
+    try {
+      const res = await userAPI.getProfile();
+      setUser(res.data);
+      localStorage.setItem('joblume_user', JSON.stringify(res.data));
+    } catch (err) {
+      console.error("Failed to refresh user profile:", err);
+    }
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ user, token, isAuthenticated: !!token, isLoading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, token, isAuthenticated: !!token, isLoading, login, register, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
