@@ -41,41 +41,60 @@ export default function LandingPage() {
     <div className="landing-page">
       <Navbar />
 
-      {/* ── Hero ─────────────────────────────────────── */}
+      {/* ── Editorial Hero ──────────────────────────────────────── */}
       <section className="hero">
         <div className="hero-bg">
-          <div className="hero-orb orb-1" />
-          <div className="hero-orb orb-2" />
-          <div className="hero-orb orb-3" />
+          {/* Subtle grid texture is handled by body noise filter and simple grid overlay */}
           <div className="hero-grid-overlay" />
         </div>
         <div className="container hero-content">
-          <div className="hero-badge animate-fade-in-up">
-            <Sparkles size={14} />
-            <span>AI-Powered Resume Platform for 2026</span>
+          <div className="hero-text-col">
+            <div className="hero-badge animate-fade-in-up">
+              <Sparkles size={14} strokeWidth={1.5} />
+              <span>Career optimization platform</span>
+            </div>
+            <h1 className="hero-title animate-fade-in-up">
+              Your next move,<br />
+              clearly defined.
+            </h1>
+            <p className="hero-subtitle animate-fade-in-up">
+              Crafted for career-level detail. Build, tailor, and track your applications with a platform designed for modern professionals.
+            </p>
+            <div className="hero-actions animate-fade-in-up">
+              <button className="btn btn-primary btn-xl" onClick={() => navigate('/register')}>
+                Craft Your Resume
+              </button>
+              <button className="btn btn-secondary btn-xl" onClick={() => navigate('/#features')}>
+                Explore Features
+              </button>
+            </div>
+            <div className="hero-stats animate-fade-in-up">
+              <div className="stat"><span className="stat-num">50K+</span><span className="stat-label">Resumes Crafted</span></div>
+              <div className="stat-divider" />
+              <div className="stat"><span className="stat-num">89%</span><span className="stat-label">Interview Rate</span></div>
+            </div>
           </div>
-          <h1 className="hero-title animate-fade-in-up">
-            Build Resumes That<br />
-            <span className="hero-gradient-text">Get You Hired</span>
-          </h1>
-          <p className="hero-subtitle animate-fade-in-up">
-            Create ATS-friendly resumes, tailor them to any job description,
-            generate cover letters, and track your applications — all powered by AI.
-          </p>
-          <div className="hero-actions animate-fade-in-up">
-            <button className="btn btn-primary btn-xl" onClick={() => navigate('/register')}>
-              Start Building Free <ArrowRight size={18} />
-            </button>
-            <button className="btn btn-secondary btn-xl" onClick={() => navigate('/#features')}>
-              See How It Works
-            </button>
-          </div>
-          <div className="hero-stats animate-fade-in-up">
-            <div className="stat"><span className="stat-num">50K+</span><span className="stat-label">Resumes Created</span></div>
-            <div className="stat-divider" />
-            <div className="stat"><span className="stat-num">89%</span><span className="stat-label">Interview Rate</span></div>
-            <div className="stat-divider" />
-            <div className="stat"><span className="stat-num">4.9/5</span><span className="stat-label">User Rating</span></div>
+          
+          <div className="hero-visual-col animate-fade-in">
+            <div className="hero-floating-card">
+              <div className="fc-header">
+                <div className="fc-avatar">JD</div>
+                <div>
+                  <div className="fc-name">Jonathan Doe</div>
+                  <div className="fc-role">Senior Product Designer</div>
+                </div>
+              </div>
+              <div className="fc-body">
+                <div className="fc-line w-full" />
+                <div className="fc-line w-3/4" />
+                <div className="fc-line w-5/6" />
+                <div className="fc-spacer" />
+                <div className="fc-heading" />
+                <div className="fc-line w-full" />
+                <div className="fc-line w-4/5" />
+              </div>
+              <div className="fc-badge"><Check size={12} strokeWidth={2} /> ATS Optimized</div>
+            </div>
           </div>
         </div>
       </section>
@@ -84,14 +103,14 @@ export default function LandingPage() {
       <section className="section features-section" id="features">
         <div className="container">
           <div className="section-header">
-            <span className="section-badge"><Zap size={14} /> Powerful Features</span>
-            <h2 className="section-title">Everything You Need to<br />Land Your Dream Job</h2>
-            <p className="section-subtitle">Our AI-powered tools give you an unfair advantage in the job market.</p>
+            <span className="section-badge"><Zap size={14} strokeWidth={1.5} /> Professional Tools</span>
+            <h2 className="section-title">Everything you need,<br />designed for clarity.</h2>
+            <p className="section-subtitle">Our suite of tools provides a distinct advantage in the modern job market.</p>
           </div>
           <div className="features-grid">
             {features.map((f, i) => (
               <div key={i} className="feature-card card card-hover" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="feature-icon"><f.icon size={24} /></div>
+                <div className="icon-soft mb-4"><f.icon size={24} strokeWidth={1.5} /></div>
                 <h3>{f.title}</h3>
                 <p>{f.desc}</p>
               </div>
@@ -104,8 +123,8 @@ export default function LandingPage() {
       <section className="section steps-section">
         <div className="container">
           <div className="section-header">
-            <span className="section-badge"><Target size={14} /> Simple Process</span>
-            <h2 className="section-title">Three Steps to Your<br />Perfect Resume</h2>
+            <span className="section-badge"><Target size={14} strokeWidth={1.5} /> Refined Workflow</span>
+            <h2 className="section-title">A deliberate approach<br />to application building.</h2>
           </div>
           <div className="steps-grid">
             {steps.map((s, i) => (
@@ -181,11 +200,11 @@ export default function LandingPage() {
       {/* ── CTA Banner ───────────────────────────────── */}
       <section className="section cta-section">
         <div className="container">
-          <div className="cta-card card-gradient">
-            <h2>Ready to Build Your Dream Resume?</h2>
-            <p>Join thousands of professionals who landed their dream jobs with JobLume AI.</p>
-            <button className="btn btn-xl cta-btn" onClick={() => navigate('/register')}>
-              Get Started Free <ArrowRight size={18} />
+          <div className="cta-card card">
+            <h2>Your career deserves a tailored approach.</h2>
+            <p>Join professionals who have elevated their applications with JobLume AI.</p>
+            <button className="btn btn-primary btn-xl cta-btn" onClick={() => navigate('/register')}>
+              Craft Your Resume
             </button>
           </div>
         </div>

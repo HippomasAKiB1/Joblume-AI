@@ -29,8 +29,7 @@ export default function LoginPage() {
   return (
     <div className="auth-page">
       <div className="auth-bg">
-        <div className="auth-orb orb-a" />
-        <div className="auth-orb orb-b" />
+        {/* Subtle grid texture handled globally by body noise filter */}
       </div>
       <div className="auth-container animate-scale-in">
         <div className="auth-header">
@@ -38,8 +37,8 @@ export default function LoginPage() {
             <div className="brand-icon"><Sparkles size={20} /></div>
             <span className="brand-text">JobLume<span className="brand-ai">AI</span></span>
           </Link>
-          <h1>Welcome back</h1>
-          <p>Sign in to continue building your career</p>
+          <h1>Resume your progress.</h1>
+          <p>Access your crafted materials and application history.</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -63,7 +62,7 @@ export default function LoginPage() {
             <Link to="/forgot-password" className="auth-link">Forgot password?</Link>
           </div>
           <button type="submit" className="btn btn-primary btn-lg w-full" disabled={loading}>
-            {loading ? <div className="spinner" /> : <>Sign In <ArrowRight size={18} /></>}
+            {loading ? <div className="spinner" /> : <>Access Account <ArrowRight size={18} strokeWidth={1.5} /></>}
           </button>
         </form>
 

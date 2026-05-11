@@ -6,28 +6,24 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: var(--space-6);
+  justify-content: flex-start; /* Asymmetric editorial shift */
+  padding: var(--space-6) 15%;
   position: relative;
   overflow: hidden;
 }
 
 .auth-bg { position: absolute; inset: 0; z-index: 0; }
-.auth-orb { position: absolute; border-radius: 50%; filter: blur(100px); }
-.orb-a { width: 400px; height: 400px; background: var(--primary); opacity: 0.15; top: -100px; right: -50px; animation: float 10s ease-in-out infinite; }
-.orb-b { width: 350px; height: 350px; background: var(--secondary); opacity: 0.1; bottom: -80px; left: -50px; animation: float 8s ease-in-out infinite reverse; }
+/* Orbs entirely removed */
 
 .auth-container {
   position: relative;
   z-index: 1;
   width: 100%;
   max-width: 440px;
-  background: var(--bg-glass);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--bg-glass-border);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-10);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-12) var(--space-10);
   box-shadow: var(--shadow-xl);
 }
 
@@ -43,9 +39,11 @@
 }
 
 .auth-header h1 {
-  font-size: var(--text-2xl);
-  font-weight: 800;
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  font-weight: 600;
   margin-bottom: var(--space-2);
+  color: var(--primary);
 }
 
 .auth-header p {

@@ -31,8 +31,7 @@ export default function RegisterPage() {
   return (
     <div className="auth-page">
       <div className="auth-bg">
-        <div className="auth-orb orb-a" />
-        <div className="auth-orb orb-b" />
+        {/* Subtle grid texture handled globally by body noise filter */}
       </div>
       <div className="auth-container animate-scale-in">
         <div className="auth-header">
@@ -40,8 +39,8 @@ export default function RegisterPage() {
             <div className="brand-icon"><Sparkles size={20} /></div>
             <span className="brand-text">JobLume<span className="brand-ai">AI</span></span>
           </Link>
-          <h1>Create your account</h1>
-          <p>Start building your career with AI</p>
+          <h1>Start your application.</h1>
+          <p>Craft a career-defining resume with precision tools.</p>
         </div>
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="input-group">
@@ -69,7 +68,7 @@ export default function RegisterPage() {
             </div>
           </div>
           <button type="submit" className="btn btn-primary btn-lg w-full" disabled={loading}>
-            {loading ? <div className="spinner" /> : <>Create Account <ArrowRight size={18} /></>}
+            {loading ? <div className="spinner" /> : <>Begin Building <ArrowRight size={18} strokeWidth={1.5} /></>}
           </button>
         </form>
         <p className="auth-footer-text">
