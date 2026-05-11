@@ -43,7 +43,7 @@ export default function Footer() {
         </div>
         <div className="footer-bottom">
           <p>&copy; {new Date().getFullYear()} JobLume AI. All rights reserved.</p>
-          <p className="developer-credit">Developed by <a href="https://github.com/HippomasAKiB1" target="_blank" rel="noreferrer">AKiB</a></p>
+          <p className="developer-credit">Developed by <a href="https://akibhasan.me" target="_blank" rel="noreferrer">AKiB</a></p>
         </div>
       </div>
     </footer>
