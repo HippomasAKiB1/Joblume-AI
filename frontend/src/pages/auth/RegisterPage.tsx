@@ -47,7 +47,7 @@ export default function RegisterPage() {
             <label htmlFor="fullName">Full Name</label>
             <div className="input-icon-wrapper">
               <User size={18} className="input-icon" />
-              <input id="fullName" type="text" className="input input-with-icon" placeholder="John Doe"
+              <input id="fullName" type="text" className="input input-with-icon" placeholder="Akib Hasan"
                 value={fullName} onChange={e => setFullName(e.target.value)} required />
             </div>
           </div>
@@ -55,7 +55,7 @@ export default function RegisterPage() {
             <label htmlFor="email">Email</label>
             <div className="input-icon-wrapper">
               <Mail size={18} className="input-icon" />
-              <input id="email" type="email" className="input input-with-icon" placeholder="you@example.com"
+              <input id="email" type="email" className="input input-with-icon" placeholder="akib@example.com"
                 value={email} onChange={e => setEmail(e.target.value)} required />
             </div>
           </div>

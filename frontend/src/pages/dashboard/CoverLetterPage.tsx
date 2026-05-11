@@ -40,8 +40,8 @@ export default function CoverLetterPage() {
               {resumes.map(r => <option key={r.id} value={r.id}>{r.title}</option>)}
             </select>
           </div>
-          <div className="input-group"><label>Job Title *</label><input className="input" placeholder="e.g. Software Engineer" value={jobTitle} onChange={e => setJobTitle(e.target.value)} /></div>
-          <div className="input-group"><label>Company Name *</label><input className="input" placeholder="e.g. Google" value={company} onChange={e => setCompany(e.target.value)} /></div>
+          <div className="input-group"><label>Job Title *</label><input className="input" placeholder="e.g. AI Specialist" value={jobTitle} onChange={e => setJobTitle(e.target.value)} /></div>
+          <div className="input-group"><label>Company Name *</label><input className="input" placeholder="e.g. OpenAI" value={company} onChange={e => setCompany(e.target.value)} /></div>
           <div className="input-group"><label>Job Description (optional)</label><textarea className="textarea" rows={6} placeholder="Paste the job description for better results..." value={jdText} onChange={e => setJdText(e.target.value)} /></div>
           <button className="btn btn-primary w-full btn-lg" onClick={generate} disabled={loading}>
             {loading ? <><div className="spinner" /> Generating...</> : <><Wand2 size={18} /> Generate Cover Letter</>}
