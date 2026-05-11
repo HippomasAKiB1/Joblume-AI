@@ -46,19 +46,19 @@ export default function DashboardHome() {
       {/* Stats Cards */}
       <div className="stats-row">
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(79,70,229,0.1)', color: 'var(--primary)' }}><FileText size={22} /></div>
+          <div className="stat-card-icon" style={{ background: 'var(--primary-soft)', color: 'var(--primary)' }}><FileText size={22} /></div>
           <div><p className="stat-card-num">{resumes.length}</p><p className="stat-card-label">Resumes</p></div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(6,182,212,0.1)', color: 'var(--secondary)' }}><ClipboardList size={22} /></div>
+          <div className="stat-card-icon" style={{ background: 'var(--secondary-soft)', color: 'var(--secondary)' }}><ClipboardList size={22} /></div>
           <div><p className="stat-card-num">{applications.length}</p><p className="stat-card-label">Applications</p></div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(16,185,129,0.1)', color: 'var(--success)' }}><TrendingUp size={22} /></div>
+          <div className="stat-card-icon" style={{ background: 'var(--success-soft)', color: 'var(--success)' }}><TrendingUp size={22} /></div>
           <div><p className="stat-card-num">{statusCounts.interview}</p><p className="stat-card-label">Interviews</p></div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-icon" style={{ background: 'rgba(245,158,11,0.1)', color: 'var(--accent)' }}><Wand2 size={22} /></div>
+          <div className="stat-card-icon" style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}><Wand2 size={22} /></div>
           <div><p className="stat-card-num">{statusCounts.offer}</p><p className="stat-card-label">Offers</p></div>
         </div>
       </div>

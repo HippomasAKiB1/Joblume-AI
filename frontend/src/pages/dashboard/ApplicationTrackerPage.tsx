@@ -52,10 +52,10 @@ export default function ApplicationTrackerPage() {
       </div>
 
       <div className="stats-row" style={{marginBottom:'var(--space-6)'}}>
-        <div className="stat-card"><div className="stat-card-icon" style={{background:'rgba(59,130,246,0.1)',color:'var(--info)'}}><Briefcase size={20}/></div><div><p className="stat-card-num">{counts.total}</p><p className="stat-card-label">Total</p></div></div>
-        <div className="stat-card"><div className="stat-card-icon" style={{background:'rgba(59,130,246,0.1)',color:'var(--info)'}}><ClipboardList size={20}/></div><div><p className="stat-card-num">{counts.applied}</p><p className="stat-card-label">Applied</p></div></div>
-        <div className="stat-card"><div className="stat-card-icon" style={{background:'rgba(245,158,11,0.1)',color:'var(--warning)'}}><ClipboardList size={20}/></div><div><p className="stat-card-num">{counts.interview}</p><p className="stat-card-label">Interview</p></div></div>
-        <div className="stat-card"><div className="stat-card-icon" style={{background:'rgba(16,185,129,0.1)',color:'var(--success)'}}><ClipboardList size={20}/></div><div><p className="stat-card-num">{counts.offer}</p><p className="stat-card-label">Offers</p></div></div>
+        <div className="stat-card"><div className="stat-card-icon" style={{background:'var(--primary-soft)',color:'var(--primary)'}}><Briefcase size={20}/></div><div><p className="stat-card-num">{counts.total}</p><p className="stat-card-label">Total</p></div></div>
+        <div className="stat-card"><div className="stat-card-icon" style={{background:'var(--primary-soft)',color:'var(--primary)'}}><ClipboardList size={20}/></div><div><p className="stat-card-num">{counts.applied}</p><p className="stat-card-label">Applied</p></div></div>
+        <div className="stat-card"><div className="stat-card-icon" style={{background:'var(--accent-soft)',color:'var(--accent)'}}><ClipboardList size={20}/></div><div><p className="stat-card-num">{counts.interview}</p><p className="stat-card-label">Interview</p></div></div>
+        <div className="stat-card"><div className="stat-card-icon" style={{background:'var(--success-soft)',color:'var(--success)'}}><ClipboardList size={20}/></div><div><p className="stat-card-num">{counts.offer}</p><p className="stat-card-label">Offers</p></div></div>
       </div>
 
       {apps.length === 0 && !loading ? (
