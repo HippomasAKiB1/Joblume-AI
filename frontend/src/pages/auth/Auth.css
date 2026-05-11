@@ -6,8 +6,8 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* Asymmetric editorial shift */
-  padding: var(--space-6) 15%;
+  justify-content: center;
+  padding: var(--space-6);
   position: relative;
   overflow: hidden;
 }
