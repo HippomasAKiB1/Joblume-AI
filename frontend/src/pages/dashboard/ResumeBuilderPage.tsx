@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { resumeAPI } from '../../services/api';
+import { resumeAPI, aiAPI } from '../../services/api';
 import { ResumeData, DEFAULT_RESUME_DATA, TEMPLATES, Education, Experience, Project, Certification, Language, Award } from '../../types';
-import { Save, Download, FileText, Plus, Trash2, GripVertical } from 'lucide-react';
+import { Save, Download, FileText, Plus, Trash2, GripVertical, Sparkles } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './ResumeBuilder.css';
 
@@ -15,6 +15,7 @@ export default function ResumeBuilderPage() {
   const [template, setTemplate] = useState('modern-professional');
   const [data, setData] = useState<ResumeData>(DEFAULT_RESUME_DATA);
   const [saving, setSaving] = useState(false);
+  const [refining, setRefining] = useState(false);
   const [activeSection, setActiveSection] = useState('personal');
 
   useEffect(() => {
@@ -33,9 +34,25 @@ export default function ResumeBuilderPage() {
     try {
       await resumeAPI.update(id, { title, template_name: template, json_data: data });
       toast.success('Saved!');
-    } catch { toast.error('Save failed'); }
+    } catch (e: any) { 
+      toast.error(e.response?.data?.detail || 'Save failed. Please check your data.'); 
+    }
     finally { setSaving(false); }
   }, [id, title, template, data]);
+
+  const handleRefine = async () => {
+    setRefining(true);
+    const loadingToast = toast.loading('AI is refining your resume... This may take a moment.');
+    try {
+      const res = await aiAPI.refineResume({ json_data: data });
+      setData(res.data.json_data);
+      toast.success('Resume refined successfully!', { id: loadingToast });
+    } catch (e: any) {
+      toast.error(e.response?.data?.detail || 'AI Refinement failed', { id: loadingToast });
+    } finally {
+      setRefining(false);
+    }
+  };
 
   const updatePersonal = (field: string, value: string) => {
     setData(d => ({ ...d, personalInfo: { ...d.personalInfo, [field]: value } }));
@@ -68,21 +85,29 @@ export default function ResumeBuilderPage() {
   const exportPDF = async () => {
     if (!id) return;
     await save();
+    const loadingToast = toast.loading('Generating PDF...');
     try {
       const res = await resumeAPI.exportPDF(id);
       const url = URL.createObjectURL(new Blob([res.data]));
       const a = document.createElement('a'); a.href = url; a.download = `${title}.pdf`; a.click();
-    } catch { toast.error('Export failed'); }
+      toast.success('Exported!', { id: loadingToast });
+    } catch (e: any) { 
+      toast.error('Export failed. Please ensure all required fields are filled.', { id: loadingToast }); 
+    }
   };
 
   const exportDOCX = async () => {
     if (!id) return;
     await save();
+    const loadingToast = toast.loading('Generating DOCX...');
     try {
       const res = await resumeAPI.exportDOCX(id);
       const url = URL.createObjectURL(new Blob([res.data]));
       const a = document.createElement('a'); a.href = url; a.download = `${title}.docx`; a.click();
-    } catch { toast.error('Export failed'); }
+      toast.success('Exported!', { id: loadingToast });
+    } catch (e: any) { 
+      toast.error('Export failed. Please ensure all required fields are filled.', { id: loadingToast }); 
+    }
   };
 
   const sections = [
@@ -106,7 +131,10 @@ export default function ResumeBuilderPage() {
           {TEMPLATES.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
         </select>
         <div className="builder-toolbar-actions">
-          <button className="btn btn-secondary btn-sm" onClick={save} disabled={saving}>
+          <button className="btn btn-secondary btn-sm" onClick={handleRefine} disabled={refining}>
+            <Sparkles size={16} /> {refining ? 'Refining...' : 'Refine with AI'}
+          </button>
+          <button className="btn btn-primary btn-sm" onClick={save} disabled={saving}>
             <Save size={16} /> {saving ? 'Saving...' : 'Save'}
           </button>
           <button className="btn btn-ghost btn-sm" onClick={exportPDF}><Download size={16} /> PDF</button>
@@ -136,6 +164,8 @@ export default function ResumeBuilderPage() {
                   <div className="input-group"><label>Location</label><input className="input" value={data.personalInfo.location} onChange={e => updatePersonal('location', e.target.value)} /></div>
                   <div className="input-group"><label>LinkedIn</label><input className="input" value={data.personalInfo.linkedin} onChange={e => updatePersonal('linkedin', e.target.value)} /></div>
                   <div className="input-group"><label>Website</label><input className="input" value={data.personalInfo.website} onChange={e => updatePersonal('website', e.target.value)} /></div>
+                  <div className="input-group"><label>GitHub</label><input className="input" value={data.personalInfo.github} onChange={e => updatePersonal('github', e.target.value)} /></div>
+                  <div className="input-group"><label>Portfolio</label><input className="input" value={data.personalInfo.portfolio} onChange={e => updatePersonal('portfolio', e.target.value)} /></div>
                 </div>
               </div>
             )}
@@ -291,13 +321,17 @@ export default function ResumeBuilderPage() {
 
         {/* ── Live Preview Panel ─── */}
         <div className="builder-preview">
-          <div className="preview-paper">
+          <div className={`preview-paper template-${template}`}>
             <div className="preview-header-section">
               <h1 className="preview-name">{data.personalInfo.fullName || 'Your Name'}</h1>
               <p className="preview-contacts">
                 {[data.personalInfo.email, data.personalInfo.phone, data.personalInfo.location].filter(Boolean).join(' • ')}
               </p>
-              {data.personalInfo.linkedin && <p className="preview-contacts">{data.personalInfo.linkedin}</p>}
+              <div className="preview-links">
+                {[data.personalInfo.linkedin, data.personalInfo.website, data.personalInfo.github, data.personalInfo.portfolio].filter(Boolean).map((link, i) => (
+                  <span key={i} className="preview-link-item">{link}</span>
+                ))}
+              </div>
             </div>
 
             {data.summary && (

@@ -20,6 +20,8 @@ export interface PersonalInfo {
   location: string;
   linkedin: string;
   website: string;
+  github: string;
+  portfolio: string;
 }
 
 export interface Education {
@@ -156,7 +158,7 @@ export const TEMPLATES: TemplateInfo[] = [
 ];
 
 export const DEFAULT_RESUME_DATA: ResumeData = {
-  personalInfo: { fullName: '', email: '', phone: '', location: '', linkedin: '', website: '' },
+  personalInfo: { fullName: '', email: '', phone: '', location: '', linkedin: '', website: '', github: '', portfolio: '' },
   summary: '',
   education: [],
   experience: [],

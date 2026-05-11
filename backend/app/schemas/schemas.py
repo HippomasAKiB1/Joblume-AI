@@ -134,6 +134,10 @@ class ATSReportResponse(BaseModel):
 
 # ── AI Schemas ────────────────────────────────────────────────
 
+class ResumeRefineRequest(BaseModel):
+    json_data: dict
+
+
 class JobTailorRequest(BaseModel):
     resume_id: str
     job_description: str

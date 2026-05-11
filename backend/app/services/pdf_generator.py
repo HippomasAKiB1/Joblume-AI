@@ -42,8 +42,9 @@ def generate_pdf(resume_data: dict) -> bytes:
         story.append(Paragraph("PROFESSIONAL SUMMARY", styles["SectionTitle"]))
         story.append(Paragraph(summary, styles["BodyText2"]))
 
-    for exp in resume_data.get("experience", []):
-        story.append(Paragraph("EXPERIENCE", styles["SectionTitle"])) if resume_data.get("experience", []).index(exp) == 0 else None
+    for i, exp in enumerate(resume_data.get("experience", [])):
+        if i == 0:
+            story.append(Paragraph("EXPERIENCE", styles["SectionTitle"]))
         title_line = f"{exp.get('title', '')} — {exp.get('company', '')}"
         story.append(Paragraph(title_line, styles["ItemTitle"]))
         date_line = f"{exp.get('startDate', '')} – {exp.get('endDate', 'Present')}"

@@ -10,6 +10,7 @@ from app.schemas.schemas import (
     JobTailorRequest, JobTailorResponse,
     CoverLetterGenerateRequest, CoverLetterResponse, CoverLetterCreateRequest,
     ATSScoreRequest, ATSScoreResponse,
+    ResumeRefineRequest,
 )
 from app.auth.dependencies import get_current_user
 from app.services import ai_service
@@ -78,3 +79,13 @@ async def upload_job_description(
         return {"text": text}
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.post("/refine-resume")
+async def refine_resume(
+    req: ResumeRefineRequest,
+    current_user: User = Depends(get_current_user),
+):
+    """Refine resume data using AI"""
+    refined_data = await ai_service.refine_resume(req.json_data)
+    return {"json_data": refined_data}

@@ -223,3 +223,50 @@ and value proposition. Use strong action-oriented language and be specific."""
     ]
 
     return await _call_openrouter(messages, temperature=0.5)
+
+
+async def refine_resume(resume_data: dict) -> dict:
+    """
+    Takes the current resume data, fixes grammar, enhances professional tone,
+    and adds stronger action verbs, returning the identical JSON structure.
+    """
+    prompt = f"""
+    You are an expert resume writer and career coach. Review the provided JSON resume data.
+    Your task is to:
+    1. Fix any grammar and spelling errors.
+    2. Enhance the professional tone of the summary and all bullet points.
+    3. Replace weak verbs with strong, impactful action verbs.
+    4. Ensure sentences are concise and impactful.
+    
+    IMPORTANT: You must return the identical JSON structure. Do not change keys, do not add fake information, do not change names/companies/dates. Only refine the descriptive text (summary, bullets, project descriptions).
+    
+    Resume Data:
+    {json.dumps(resume_data, indent=2)}
+    
+    Respond ONLY with the complete, valid JSON matching the exact original schema structure. No markdown formatting or extra text.
+    """
+    
+    messages = [
+        {
+            "role": "system",
+            "content": "You are a specialized AI that ONLY returns valid JSON."
+        },
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+    
+    try:
+        response_text = await _call_openrouter(messages, temperature=0.5)
+        
+        # Extract JSON from potential markdown formatting
+        start = response_text.find("{")
+        end = response_text.rfind("}") + 1
+        if start != -1 and end > start:
+            result = json.loads(response_text[start:end])
+            return result
+        return resume_data
+    except Exception as e:
+        print(f"Refinement error: {e}")
+        return resume_data

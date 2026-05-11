@@ -63,17 +63,20 @@
 /* Preview Panel */
 .builder-preview {
   width: 50%; max-width: 600px; background: var(--bg-tertiary);
-  padding: var(--space-6); overflow-y: auto;
-  display: flex; justify-content: center;
+  padding: var(--space-6); overflow: auto; /* Allow both vertical and horizontal scrolling */
+  display: flex; justify-content: center; align-items: flex-start;
 }
 .preview-paper {
-  width: 100%; max-width: 520px; background: white; color: #1a1a1a;
+  width: 100%; min-width: 500px; max-width: 520px; background: white; color: #1a1a1a;
   padding: 40px 36px; border-radius: var(--radius-md);
   box-shadow: 0 4px 24px rgba(0,0,0,0.08); font-size: 10px; line-height: 1.5;
-  min-height: 700px;
+  min-height: 700px; flex-shrink: 0;
+  transition: all 0.3s ease;
 }
 .preview-name { font-size: 22px; font-weight: 800; text-align: center; margin-bottom: 2px; color: #1a1a1a; }
 .preview-contacts { font-size: 9.5px; text-align: center; color: #666; margin-bottom: 4px; }
+.preview-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 6px; }
+.preview-link-item { font-size: 9px; color: #4F46E5; }
 .preview-section { margin-top: 14px; }
 .preview-section-title {
   font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
@@ -88,6 +91,63 @@
 .preview-bullets li { font-size: 9.5px; color: #444; margin-bottom: 2px; }
 .preview-text { font-size: 9.5px; color: #444; }
 .preview-tech { font-size: 9px; color: #888; }
+
+/* ── Live Template Themes ── */
+
+.template-modern-professional {
+  font-family: 'Inter', sans-serif;
+}
+.template-modern-professional .preview-section-title {
+  color: #4F46E5; border-bottom: 1.5px solid #4F46E5;
+}
+
+.template-minimal-ats {
+  font-family: 'Arial', sans-serif;
+}
+.template-minimal-ats .preview-section-title {
+  color: #000; border-bottom: 1px solid #000; text-transform: uppercase;
+}
+.template-minimal-ats .preview-link-item { color: #000; text-decoration: underline; }
+
+.template-harvard-style {
+  font-family: 'Times New Roman', serif;
+}
+.template-harvard-style .preview-section-title {
+  color: #000; border-bottom: 1px solid #333; font-weight: bold; text-align: center;
+}
+.template-harvard-style .preview-name { font-family: 'Times New Roman', serif; text-transform: uppercase; }
+
+.template-creative-designer {
+  font-family: 'Poppins', sans-serif;
+  border-top: 8px solid #F43F5E;
+}
+.template-creative-designer .preview-section-title {
+  color: #F43F5E; border-bottom: none; border-left: 3px solid #F43F5E; padding-left: 8px;
+}
+.template-creative-designer .preview-link-item { color: #F43F5E; font-weight: bold; }
+
+.template-academic-cv {
+  font-family: 'Georgia', serif;
+}
+.template-academic-cv .preview-section-title {
+  color: #2c3e50; border-bottom: 2px solid #ecf0f1;
+}
+
+.template-executive-resume {
+  font-family: 'Helvetica', sans-serif;
+}
+.template-executive-resume .preview-section-title {
+  color: #1e293b; border-bottom: 2px solid #1e293b; letter-spacing: 0.15em;
+}
+.template-executive-resume .preview-name { letter-spacing: 0.05em; color: #0f172a; }
+
+.template-europass {
+  font-family: 'Arial', sans-serif;
+}
+.template-europass .preview-section-title {
+  color: #0e4e8e; border-bottom: 1px solid #0e4e8e;
+}
+
 
 @media (max-width: 1024px) {
   .builder-layout { flex-direction: column; height: auto; }

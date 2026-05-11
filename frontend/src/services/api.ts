@@ -74,6 +74,8 @@ export const aiAPI = {
     form.append('file', file);
     return api.post('/ai/upload-jd', form, { headers: { 'Content-Type': 'multipart/form-data' } });
   },
+  refineResume: (data: { json_data: object }) =>
+    api.post('/ai/refine-resume', data),
 };
 
 // ── Applications ─────────────────────────────────────────
