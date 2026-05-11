@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.db.database import init_db
-from app.routers import auth, users, resumes, ai, applications
+from app.routers import auth, users, resumes, ai, applications, admin
 
 
 @asynccontextmanager
@@ -36,6 +36,7 @@ app.include_router(users.router)
 app.include_router(resumes.router)
 app.include_router(ai.router)
 app.include_router(applications.router)
+app.include_router(admin.router)
 
 
 @app.get("/")

@@ -13,6 +13,7 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
     subscription_tier: Mapped[str] = mapped_column(String(50), server_default="free", default="free")
+    is_admin: Mapped[bool] = mapped_column(server_default="0", default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     resumes = relationship("Resume", back_populates="user", cascade="all, delete-orphan")

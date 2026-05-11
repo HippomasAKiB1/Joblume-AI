@@ -12,7 +12,7 @@ class RegisterRequest(BaseModel):
 
 
 class LoginRequest(BaseModel):
-    email: EmailStr
+    email: str  # Loosened to str to accommodate designated non-email admin usernames
     password: str
 
 
@@ -29,6 +29,7 @@ class UserResponse(BaseModel):
     full_name: str
     email: str
     subscription_tier: str
+    is_admin: bool
     created_at: datetime
 
     class Config:

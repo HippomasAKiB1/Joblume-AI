@@ -4,6 +4,7 @@ export interface User {
   full_name: string;
   email: string;
   subscription_tier: string;
+  is_admin: boolean;
   created_at: string;
 }
 
@@ -137,6 +138,25 @@ export interface ATSScoreResult {
   missing_keywords: string[];
   weak_verbs: string[];
   improvement_tips: string[];
+}
+
+// ── Admin Types ────────────────────────────────────────────
+export interface AdminStats {
+  total_users: number;
+  total_resumes: number;
+  total_applications: number;
+  total_cover_letters: number;
+}
+
+export interface AdminUserInfo {
+  id: string;
+  full_name: string;
+  email: string;
+  is_admin: boolean;
+  subscription_tier: string;
+  created_at: string;
+  resume_count: number;
+  application_count: number;
 }
 
 // ── Template Types ─────────────────────────────────────────

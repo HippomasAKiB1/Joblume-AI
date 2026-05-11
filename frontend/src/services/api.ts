@@ -89,4 +89,10 @@ export const applicationAPI = {
   delete: (id: string) => api.delete(`/applications/${id}`),
 };
 
+// ── Administration ───────────────────────────────────────
+export const adminAPI = {
+  getStats: () => api.get('/admin/stats'),
+  listUsers: () => api.get('/admin/users'),
+};
+
 export default api;

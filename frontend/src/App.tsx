@@ -8,6 +8,8 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage';
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 // Dashboard
 import DashboardLayout from './components/layout/DashboardLayout';
@@ -30,6 +32,14 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+// Strong-Guarded Admin Route wrapper
+function AdminRoute({ children }: { children: React.ReactNode }) {
+  const { isAuthenticated, user, isLoading } = useAuth();
+  if (isLoading) return <div className="flex-center" style={{ height: '100vh' }}><div className="spinner spinner-lg" /></div>;
+  if (!isAuthenticated || !user?.is_admin) return <Navigate to="/akib-admin" replace />;
+  return <>{children}</>;
+}
+
 function AppRoutes() {
   return (
     <Routes>
@@ -38,6 +48,12 @@ function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+      {/* Admin Master Ingress */}
+      <Route path="/akib-admin" element={<AdminLogin />} />
+      
+      {/* Admin Analytics Dashboard */}
+      <Route path="/dashboard/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
 
       {/* Protected Dashboard */}
       <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
