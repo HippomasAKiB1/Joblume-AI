@@ -4,7 +4,7 @@ Provides a baseline score without relying on AI API calls.
 """
 
 import re
-from typing import Any
+
 
 # Common strong action verbs for resume scoring
 STRONG_ACTION_VERBS = {
@@ -135,7 +135,6 @@ def score_resume(json_data: dict) -> dict:
         # Check action verbs
         strong_count = 0
         for bullet in all_bullets:
-            first_word = bullet.strip().split()[0].lower().rstrip("ed").rstrip("ing") if bullet.strip() else ""
             full_first = bullet.strip().split()[0].lower() if bullet.strip() else ""
 
             if full_first in STRONG_ACTION_VERBS:
@@ -185,7 +184,6 @@ def score_resume(json_data: dict) -> dict:
             improvement_tips.append("List at least 5-8 relevant skills for ATS matching.")
 
         # Check against common keywords
-        skills_lower = {s.lower() for s in skills}
         resume_text_lower = str(json_data).lower()
         for keyword in COMMON_ATS_KEYWORDS:
             if keyword not in resume_text_lower:

@@ -60,11 +60,16 @@ async def update_application(
     app = result.scalar_one_or_none()
     if not app:
         raise HTTPException(status_code=404, detail="Application not found")
-    if req.company is not None: app.company = req.company
-    if req.position is not None: app.position = req.position
-    if req.status is not None: app.status = req.status
-    if req.applied_date is not None: app.applied_date = date.fromisoformat(req.applied_date)
-    if req.notes is not None: app.notes = req.notes
+    if req.company is not None:
+        app.company = req.company
+    if req.position is not None:
+        app.position = req.position
+    if req.status is not None:
+        app.status = req.status
+    if req.applied_date is not None:
+        app.applied_date = date.fromisoformat(req.applied_date)
+    if req.notes is not None:
+        app.notes = req.notes
     await db.flush()
     await db.refresh(app)
     r = ApplicationResponse.model_validate(app)
