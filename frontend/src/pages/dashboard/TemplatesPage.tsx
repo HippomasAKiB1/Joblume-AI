@@ -53,12 +53,13 @@ export default function TemplatesPage() {
         ))}
       </div>
       <style>{`
-        .templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-6); }
-        .template-card { padding: 0; overflow: hidden; }
-        .template-preview { height: 180px; display: flex; align-items: center; justify-content: center; background: var(--bg-tertiary); border-bottom: 1px solid var(--border-light); }
-        .template-info { padding: var(--space-5); }
-        .template-info h3 { font-size: var(--text-lg); font-weight: 700; margin: var(--space-3) 0 var(--space-2); }
-        .template-info p { font-size: var(--text-sm); color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.5; }
+        .templates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: var(--space-5); }
+        .template-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+        .template-preview { height: 140px; display: flex; align-items: center; justify-content: center; background: var(--bg-tertiary); border-bottom: 1px solid var(--border-light); flex-shrink: 0; }
+        .template-info { padding: var(--space-4); flex: 1; display: flex; flex-direction: column; }
+        .template-info h3 { font-size: var(--text-base); font-weight: 700; margin: var(--space-2) 0 var(--space-1); }
+        .template-info p { font-size: var(--text-xs); color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.5; flex: 1; }
+        .template-info .btn { margin-top: auto; }
       `}</style>
     </div>
   );
