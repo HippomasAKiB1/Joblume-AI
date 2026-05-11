@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { TEMPLATES, DEFAULT_RESUME_DATA } from '../../types';
 import { resumeAPI } from '../../services/api';
-import { Layout, ArrowRight, Briefcase, FileText, BookOpen, Globe, Palette, FileSearch, Tie } from 'lucide-react';
+import { Layout, ArrowRight, Briefcase, FileText, BookOpen, Globe, Palette, FileSearch, Award } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './Dashboard.css';
 
@@ -24,7 +24,7 @@ export default function TemplatesPage() {
       case 'europass': return <Globe size={40} strokeWidth={1.5} />;
       case 'creative-designer': return <Palette size={40} strokeWidth={1.5} />;
       case 'academic-cv': return <FileText size={40} strokeWidth={1.5} />;
-      case 'executive-resume': return <Tie size={40} strokeWidth={1.5} />;
+      case 'executive-resume': return <Award size={40} strokeWidth={1.5} />;
       default: return <Layout size={40} strokeWidth={1.5} />;
     }
   };
