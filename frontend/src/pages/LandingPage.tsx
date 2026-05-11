@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import {
@@ -23,9 +25,9 @@ const steps = [
 ];
 
 const testimonials = [
-  { name: 'Sarah Chen', role: 'Software Engineer at Google', text: 'JobLume AI helped me tailor my resume perfectly. Got 3 interview calls in the first week!', rating: 5 },
-  { name: 'Marcus Johnson', role: 'Product Manager', text: 'The ATS scanner is a game-changer. My resume went from 40% to 92% ATS score.', rating: 5 },
-  { name: 'Aisha Patel', role: 'UX Designer at Figma', text: 'Beautiful templates and smart AI suggestions. This tool saved me hours of work.', rating: 5 },
+  { name: 'Tasnia Rahman', role: 'Software Engineer', text: 'JobLume AI is incredible. Helped me tailor my resume perfectly and got 3 interview calls!', rating: 5 },
+  { name: 'Akib Hasan', role: 'AI Specialist', text: 'The ATS scanner delivers great insights. It drastically improved my application results.', rating: 5 },
+  { name: 'Marcus Johnson', role: 'Product Manager', text: 'Clean templates and smart suggestions. Saved me hours of tedious manual formatting.', rating: 5 },
 ];
 
 const pricingPlans = [
@@ -36,6 +38,26 @@ const pricingPlans = [
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuthenticated } = useAuth();
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      setTimeout(() => scrollToSection(id), 100);
+    }
+  }, [location]);
+
+  const handleCraftResume = () => {
+    navigate(isAuthenticated ? '/dashboard' : '/login');
+  };
 
   return (
     <div className="landing-page">
@@ -61,27 +83,22 @@ export default function LandingPage() {
               Crafted for career-level detail. Build, tailor, and track your applications with a platform designed for modern professionals.
             </p>
             <div className="hero-actions animate-fade-in-up">
-              <button className="btn btn-primary btn-xl" onClick={() => navigate('/register')}>
+              <button className="btn btn-primary btn-xl" onClick={handleCraftResume}>
                 Craft Your Resume
               </button>
-              <button className="btn btn-secondary btn-xl" onClick={() => navigate('/#features')}>
+              <button className="btn btn-secondary btn-xl" onClick={() => scrollToSection('features')}>
                 Explore Features
               </button>
-            </div>
-            <div className="hero-stats animate-fade-in-up">
-              <div className="stat"><span className="stat-num">50K+</span><span className="stat-label">Resumes Crafted</span></div>
-              <div className="stat-divider" />
-              <div className="stat"><span className="stat-num">89%</span><span className="stat-label">Interview Rate</span></div>
             </div>
           </div>
           
           <div className="hero-visual-col animate-fade-in">
             <div className="hero-floating-card">
               <div className="fc-header">
-                <div className="fc-avatar">JD</div>
+                <div className="fc-avatar">AP</div>
                 <div>
-                  <div className="fc-name">Jonathan Doe</div>
-                  <div className="fc-role">Senior Product Designer</div>
+                  <div className="fc-name">Akib Hasan Pyil</div>
+                  <div className="fc-role">AI-ML Engineer</div>
                 </div>
               </div>
               <div className="fc-body">
@@ -203,7 +220,7 @@ export default function LandingPage() {
           <div className="cta-card card">
             <h2>Your career deserves a tailored approach.</h2>
             <p>Join professionals who have elevated their applications with JobLume AI.</p>
-            <button className="btn btn-primary btn-xl cta-btn" onClick={() => navigate('/register')}>
+            <button className="btn btn-primary btn-xl cta-btn" onClick={handleCraftResume}>
               Craft Your Resume
             </button>
           </div>

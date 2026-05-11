@@ -75,6 +75,15 @@
 .footer-bottom p {
   font-size: var(--text-sm);
   color: var(--text-tertiary);
+  margin-bottom: var(--space-1);
+}
+.developer-credit a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+.developer-credit a:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
