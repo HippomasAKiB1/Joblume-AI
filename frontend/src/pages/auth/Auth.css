@@ -43,7 +43,7 @@
   font-size: var(--text-3xl);
   font-weight: 600;
   margin-bottom: var(--space-2);
-  color: var(--primary);
+  color: var(--text-primary);
 }
 
 .auth-header p {
