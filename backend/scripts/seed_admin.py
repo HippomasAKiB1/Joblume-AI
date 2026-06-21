@@ -6,7 +6,7 @@ from sqlalchemy import select
 # Push backend root into sys path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from app.db.database import AsyncSessionLocal
+from app.db.database import AsyncSessionLocal, init_db
 from app.models.user import User
 from app.auth.jwt_handler import get_password_hash
 
@@ -14,6 +14,10 @@ ADMIN_USERNAME = "hippomasakib"
 ADMIN_PASSWORD = "REDACTED_ADMIN_PASSWORD"
 
 async def seed_admin():
+    # Make sure database is initialized and tables exist
+    print("[*] Initializing database schema...")
+    await init_db()
+    
     print(f"[*] Checking presence of administrator '{ADMIN_USERNAME}'...")
     async with AsyncSessionLocal() as db:
         # Detect if user already exists
