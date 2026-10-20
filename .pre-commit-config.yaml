@@ -1,0 +1,31 @@
+# Pre-commit configuration for JobLume AI
+# Prevents credentials, API keys, and malformed files from entering git history
+
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.0
+    hooks:
+      - id: gitleaks
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: local
+    hooks:
+      - id: check-api-secrets
+        name: Detect Hardcoded API Keys & Tokens
+        entry: '(?i)(sk-[o]r-v1-[a-zA-Z0-9]{32,}|sk_live_[0-9a-zA-Z]{24,}|sk_test_[0-9a-zA-Z]{24,}|AKIA[0-9A-Z]{16}|ghp_[0-9a-zA-Z]{36}|ghs_[0-9a-zA-Z]{36})'
+        language: pygrep
+        types: [text]
+      - id: check-hardcoded-passwords
+        name: Detect Hardcoded Password Assignments
+        entry: '(?i)(ADMIN_PASSWORD|PASSWORD|SECRET_KEY)\s*=\s*[''"][^''"]{6,}[''"]'
+        language: pygrep
+        types: [python]

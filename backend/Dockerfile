@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "python scripts/seed_admin.py && alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

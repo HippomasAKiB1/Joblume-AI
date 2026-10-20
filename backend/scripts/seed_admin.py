@@ -1,5 +1,6 @@
 import sys
 import os
+import secrets
 import asyncio
 from sqlalchemy import select
 
@@ -10,14 +11,30 @@ from app.db.database import AsyncSessionLocal, init_db
 from app.models.user import User
 from app.auth.jwt_handler import get_password_hash
 
-ADMIN_USERNAME = "hippomasakib"
-ADMIN_PASSWORD = "REDACTED_ADMIN_PASSWORD"
+ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "hippomasakib")
+is_production = os.getenv("ENVIRONMENT", "").lower() == "production" or os.getenv("RENDER") == "true"
+
+raw_password = os.getenv("ADMIN_PASSWORD")
+if not raw_password:
+    if is_production:
+        raise RuntimeError(
+            "FATAL SECURITY ERROR: ADMIN_PASSWORD environment variable must be set in production environments. "
+            "Refusing to generate ephemeral credentials on live deployment."
+        )
+    raw_password = secrets.token_urlsafe(16)
+    print("\n" + "=" * 70)
+    print(f"[SECURITY] Generated ephemeral administrator password for '{ADMIN_USERNAME}':")
+    print(f"           {raw_password}")
+    print("           (Copy this now. It is never persisted in files or git.)")
+    print("=" * 70 + "\n")
+
+ADMIN_PASSWORD = raw_password
 
 async def seed_admin():
     # Make sure database is initialized and tables exist
     print("[*] Initializing database schema...")
     await init_db()
-    
+
     print(f"[*] Checking presence of administrator '{ADMIN_USERNAME}'...")
     async with AsyncSessionLocal() as db:
         # Detect if user already exists
