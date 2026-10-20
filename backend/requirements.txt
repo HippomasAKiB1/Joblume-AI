@@ -17,3 +17,4 @@ jinja2
 python-dotenv
 email-validator
 psycopg2-binary  # Required for Alembic synchronous database migrations
+httpx  # Required for Resend email service
