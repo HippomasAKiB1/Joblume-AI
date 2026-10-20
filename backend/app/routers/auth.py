@@ -122,7 +122,10 @@ async def refresh(request: Request, response: Response, db: AsyncSession = Depen
     # 1. CSRF defense: Origin header validation
     origin = request.headers.get("origin")
     if origin:
-        allowed = {settings.FRONTEND_URL.rstrip("/")}
+        allowed = {
+            settings.FRONTEND_URL.rstrip("/"),
+            "https://joblume-ai.vercel.app",
+        }
         if settings.ENVIRONMENT.lower() != "production":
             allowed.update({
                 "http://localhost:5173",
