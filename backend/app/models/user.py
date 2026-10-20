@@ -1,6 +1,7 @@
 import uuid
 from datetime import datetime
-from sqlalchemy import String, DateTime, func
+from typing import Optional
+from sqlalchemy import String, DateTime, Text, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.database import Base
 
@@ -12,6 +13,7 @@ class User(Base):
     full_name: Mapped[str] = mapped_column(String(255), nullable=False)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
+    refresh_token_hash: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     subscription_tier: Mapped[str] = mapped_column(String(50), server_default="free", default="free")
     is_admin: Mapped[bool] = mapped_column(server_default="0", default=False)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())

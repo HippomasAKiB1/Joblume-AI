@@ -8,7 +8,11 @@ class Settings(BaseSettings):
     DIRECT_DATABASE_URL: Optional[str] = None
     JWT_SECRET: str = "dev-secret-change-me"
     JWT_ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
+    REFRESH_TOKEN_EXPIRE_DAYS: int = 7
+    RESEND_API_KEY: Optional[str] = None
+    RESEND_FROM_EMAIL: str = "onboarding@resend.dev"
+    ENVIRONMENT: str = "development"
     OPENROUTER_API_KEY: str = ""
     OPENROUTER_MODEL: str = "openrouter/auto"
     FRONTEND_URL: str = "http://localhost:5173"
@@ -28,3 +32,7 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
+# Validate JWT_SECRET fail-loud in production
+if settings.ENVIRONMENT.lower() == "production" and settings.JWT_SECRET == "dev-secret-change-me":
+    raise RuntimeError("JWT_SECRET must be set to a secure value in production!")
