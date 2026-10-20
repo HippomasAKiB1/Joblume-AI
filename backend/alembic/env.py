@@ -13,16 +13,25 @@ import app.models # Ensure models are initialized to metadata stack
 
 config = context.config
 
-# Dynamically switch the asynchronous driver protocol into a synchronous dialect compatible with Alembic runner
-db_url = settings.DATABASE_URL
-if "sqlite+aiosqlite" in db_url:
-    db_url = db_url.replace("sqlite+aiosqlite", "sqlite")
-elif "postgresql+asyncpg" in db_url:
-    db_url = db_url.replace("postgresql+asyncpg", "postgresql")
-elif db_url.startswith("postgres://"): # Handle edge-case raw postgres protocols
-    db_url = db_url.replace("postgres://", "postgresql://", 1)
+def to_sync_driver_url(raw_url: str) -> str:
+    """Force psycopg2 (v2) sync driver for Alembic migrations."""
+    if "sqlite+aiosqlite" in raw_url:
+        return raw_url.replace("sqlite+aiosqlite", "sqlite")
+    for prefix in (
+        "postgresql+asyncpg://",
+        "postgresql+psycopg://",
+        "postgresql+psycopg_async://",
+        "postgresql+psycopg2://",
+        "postgresql://",
+        "postgres://",
+    ):
+        if raw_url.startswith(prefix):
+            return "postgresql+psycopg2://" + raw_url[len(prefix):]
+    return raw_url
 
-config.set_main_option("sqlalchemy.url", db_url)
+
+sync_db_url = to_sync_driver_url(settings.DATABASE_URL)
+config.set_main_option("sqlalchemy.url", sync_db_url)
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
