@@ -30,7 +30,14 @@ def to_sync_driver_url(raw_url: str) -> str:
     return raw_url
 
 
-sync_db_url = to_sync_driver_url(settings.DATABASE_URL)
+# Prioritize direct connection for Alembic DDL migrations; bypass PgBouncer pooler
+raw_target_url = settings.DIRECT_DATABASE_URL
+if not raw_target_url:
+    raw_target_url = settings.DATABASE_URL
+    if "-pooler." in raw_target_url:
+        raw_target_url = raw_target_url.replace("-pooler.", ".")
+
+sync_db_url = to_sync_driver_url(raw_target_url)
 config.set_main_option("sqlalchemy.url", sync_db_url)
 
 if config.config_file_name is not None:

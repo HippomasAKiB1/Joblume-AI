@@ -5,6 +5,7 @@ from typing import Optional
 
 class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite+aiosqlite:///./joblume.db"
+    DIRECT_DATABASE_URL: Optional[str] = None
     JWT_SECRET: str = "dev-secret-change-me"
     JWT_ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
