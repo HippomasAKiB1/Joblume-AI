@@ -19,6 +19,7 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
 
     resumes = relationship("Resume", back_populates="user", cascade="all, delete-orphan")
+    master_profile = relationship("MasterProfile", back_populates="user", uselist=False, cascade="all, delete-orphan")
     cover_letters = relationship("CoverLetter", back_populates="user", cascade="all, delete-orphan")
     applications = relationship("Application", back_populates="user", cascade="all, delete-orphan")
     ats_reports = relationship("ATSReport", back_populates="user", cascade="all, delete-orphan")

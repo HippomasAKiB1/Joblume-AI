@@ -6,7 +6,7 @@ import structlog
 from app.core.config import settings
 from app.core.logging_config import init_logging
 from app.db.database import init_db
-from app.routers import auth, users, resumes, ai, applications, admin
+from app.routers import auth, users, resumes, ai, applications, admin, api_v2
 
 # Initialize structured logging
 init_logging()
@@ -63,6 +63,7 @@ app.include_router(resumes.router)
 app.include_router(ai.router)
 app.include_router(applications.router)
 app.include_router(admin.router)
+app.include_router(api_v2.router, prefix="/api/v2")
 
 
 @app.get("/")
