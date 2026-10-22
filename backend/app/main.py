@@ -73,8 +73,3 @@ async def root():
 @app.get("/health")
 async def health():
     return {"status": "healthy"}
-
-
-@app.get("/debug/sentry-test")
-async def sentry_test():
-    raise RuntimeError("sentry test")
