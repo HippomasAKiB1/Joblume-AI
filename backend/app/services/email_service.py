@@ -1,15 +1,18 @@
 import httpx
+import structlog
 from app.core.config import settings
+
+logger = structlog.get_logger(__name__)
 
 
 async def send_password_reset_email(to: str, reset_url: str) -> bool:
     """
     Sends a password reset email via the Resend API.
     If RESEND_API_KEY is not configured (e.g. during local development or testing),
-    the reset link is printed to stdout and execution succeeds silently.
+    the reset link is logged and execution succeeds silently.
     """
     if not settings.RESEND_API_KEY:
-        print(f"[DEV EMAIL] Password reset requested for {to}. Link: {reset_url}")
+        logger.info("Password reset link generated in dev mode", to=to, reset_url=reset_url)
         return True
 
     payload = {
@@ -43,9 +46,9 @@ async def send_password_reset_email(to: str, reset_url: str) -> bool:
         try:
             resp = await client.post("https://api.resend.com/emails", json=payload, headers=headers, timeout=10.0)
             if resp.status_code >= 400:
-                print(f"[ERROR] Resend API error ({resp.status_code}): {resp.text}")
+                logger.error("Resend API error", status_code=resp.status_code, response=resp.text)
                 return False
             return True
         except Exception as e:
-            print(f"[ERROR] Failed to send email via Resend: {e}")
+            logger.error("Failed to send email via Resend", error=str(e))
             return False

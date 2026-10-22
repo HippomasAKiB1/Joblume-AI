@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     OPENROUTER_API_KEY: str = ""
     OPENROUTER_MODEL: str = "openrouter/auto"
     FRONTEND_URL: str = "http://localhost:5173"
+    SENTRY_DSN_BACKEND: Optional[str] = None
 
     @field_validator("DATABASE_URL", mode="after")
     @classmethod

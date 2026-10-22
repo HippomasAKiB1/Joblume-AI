@@ -71,6 +71,10 @@ async def get_db():
 
 
 from sqlalchemy import text
+import structlog
+
+logger = structlog.get_logger(__name__)
+
 
 async def init_db():
     """
@@ -79,4 +83,4 @@ async def init_db():
     """
     async with engine.connect() as conn:
         await conn.execute(text("SELECT 1"))
-    print("[+] Database connection verified successfully.")
+    logger.info("Database connection verified successfully")
