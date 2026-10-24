@@ -171,4 +171,5 @@ export const adminAPI = {
   listUsers: () => api.get('/admin/users'),
 };
 
+export { api };
 export default api;

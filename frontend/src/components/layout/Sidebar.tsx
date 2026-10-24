@@ -18,7 +18,7 @@ const menuItems = [
   { path: '/dashboard/cover-letters', icon: Mail, label: 'Cover Letters' },
   { path: '/dashboard/ats-scanner', icon: ScanSearch, label: 'ATS Scanner' },
   { path: '/dashboard/applications', icon: ClipboardList, label: 'App Tracker' },
-  { path: '/dashboard/profile', icon: User, label: 'Profile' },
+  { path: '/dashboard/profile', icon: User, label: 'Master Profile' },
   { path: '/dashboard/settings', icon: Settings, label: 'Settings' },
 ];
 
@@ -71,10 +71,10 @@ export default function Sidebar() {
           </button>
         )}
 
-        <UpgradeModal 
-          isOpen={isUpgradeModalOpen} 
-          onClose={() => setIsUpgradeModalOpen(false)} 
-          plan="pro" 
+        <UpgradeModal
+          isOpen={isUpgradeModalOpen}
+          onClose={() => setIsUpgradeModalOpen(false)}
+          plan="pro"
         />
         {!collapsed && user && (
           <div className="sidebar-user">

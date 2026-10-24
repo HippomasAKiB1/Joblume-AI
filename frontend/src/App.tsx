@@ -16,13 +16,16 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import DashboardLayout from './components/layout/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import MyResumesPage from './pages/dashboard/MyResumesPage';
+import ResumeLibraryPage from './pages/dashboard/ResumeLibraryPage';
+import ResumeViewEditorPage from './pages/dashboard/ResumeViewEditorPage';
+import ResumeRouteResolver from './components/routing/ResumeRouteResolver';
 import ResumeBuilderPage from './pages/dashboard/ResumeBuilderPage';
 import TemplatesPage from './pages/dashboard/TemplatesPage';
 import JobTailorPage from './pages/dashboard/JobTailorPage';
 import CoverLetterPage from './pages/dashboard/CoverLetterPage';
 import ATSScannerPage from './pages/dashboard/ATSScannerPage';
 import ApplicationTrackerPage from './pages/dashboard/ApplicationTrackerPage';
-import ProfilePage from './pages/dashboard/ProfilePage';
+import MasterProfilePage from './pages/dashboard/MasterProfilePage';
 import SettingsPage from './pages/dashboard/SettingsPage';
 
 // Protected Route wrapper
@@ -60,14 +63,15 @@ function AppRoutes() {
       {/* Protected Dashboard */}
       <Route path="/dashboard" element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
         <Route index element={<DashboardHome />} />
-        <Route path="resumes" element={<MyResumesPage />} />
-        <Route path="resumes/edit/:id" element={<ResumeBuilderPage />} />
+        <Route path="resumes" element={<ResumeLibraryPage />} />
+        <Route path="resumes/edit/:id" element={<ResumeRouteResolver />} />
+        <Route path="resumes/:id" element={<ResumeViewEditorPage />} />
         <Route path="templates" element={<TemplatesPage />} />
         <Route path="job-tailor" element={<JobTailorPage />} />
         <Route path="cover-letters" element={<CoverLetterPage />} />
         <Route path="ats-scanner" element={<ATSScannerPage />} />
         <Route path="applications" element={<ApplicationTrackerPage />} />
-        <Route path="profile" element={<ProfilePage />} />
+        <Route path="profile" element={<MasterProfilePage />} />
         <Route path="settings" element={<SettingsPage />} />
       </Route>
 
